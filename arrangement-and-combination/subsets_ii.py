@@ -12,15 +12,16 @@ class Solution:
         
         r = []
         
-        def subsets_helper(path, pos):
+        def helper(path, pos):
             r.append(path)
             
             for i in range(pos, len(nums)):
-                if i > 0 and i != pos and nums[i] == nums[i-1]: # 被跳过了？
+                if i > 0 and i != pos and nums[i] == nums[i-1]:
+                    # 被跳过了？
                     continue
 
-                subsets_helper(path + [nums[i]], i + 1)
+                helper(path + [nums[i]], i + 1)
         
         nums.sort()
-        subsets_helper([], 0)
+        helper([], 0)
         return r
