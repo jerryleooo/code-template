@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# http://lintcode.com/en/problem/subsets/
-
 class Solution:
     
     """
@@ -11,14 +7,13 @@ class Solution:
     def subsets(self, nums):
         # write your code here
         
-        r = []
-        
-        def helper(path, pos):
-            r.append(path)
+        def helper(current, start):
+            result.append(current)
             
-            for i in range(pos, len(nums)):
-                helper(path + [nums[i]], i + 1)
-                
+            for i in range(start, len(nums)):
+                helper(current + [nums[i]], i + 1)
+        
+        nums.sort()
+        result = []
         helper([], 0)
-                
-        return r
+        return result

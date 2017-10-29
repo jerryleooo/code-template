@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
-
-# 这是个超时的答案
-# 听 graph 的最后一部分
-
 from collections import defaultdict
 import Queue
+import string
 
 class Solution:
     """
@@ -21,21 +17,25 @@ class Solution:
             for i in range(len(w1)):
                 if w1[i] != w2[i]:
                     c += 1
-                    
-            return c
-        
-        word_dict = defaultdict(list)
+                    if c > 1:
+                        return False
+            return True
+            
+        def get_next_word(word):
+            r = []
+            for i in range(len(word)):
+                for c in string.ascii_lowercase:
+                    if c == word[i]:
+                        continue
+    
+                    next = "".join([word[:i], c, word[i+1:]])
+                    if next in dict:
+                        r.append(next)
+            return r
+
         dict.add(start)
         dict.add(end)
-        
-        for i, w1 in enumerate(dict):
-            for j, w2 in enumerate(dict):
-                if i != j and diff(w1, w2) == 1:
-                    word_dict[w1].append(w2)
-                    word_dict[w2].append(w1)
-            
         visited = set()
-
         queue = Queue.Queue()
         queue.put(start)
 
@@ -47,12 +47,12 @@ class Solution:
 
                 if word in visited:
                     continue
+
                 if word == end:
                     return step + 1
 
                 visited.add(word)
-                next_words = word_dict.get(word) or []
-                for w in next_words:
+                for w in get_next_word(word):
                     queue.put(w)
             step += 1
 
