@@ -48,6 +48,10 @@ class Codec:
             return node
         
         vals = iter(data.split())
+        # 迭代器的使用也是有点意思
+        # 不能用 for in 的原因在于
+        # 在下一个函数里面，还是得从头遍历 vals
+        # 这样是不对的
         return doit()
         
 
