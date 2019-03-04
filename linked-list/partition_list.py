@@ -15,15 +15,15 @@ class Solution:
     """
     def partition(self, head, x):
         # write your code here
-        
+
         if not head:
             return None
-            
+
         left_dummy = ListNode(0)
         right_dummy = ListNode(0)
-        
+
         left, right = left_dummy, right_dummy
-        
+
         while head:
             if head.val < x:
                 left.next = head
@@ -31,10 +31,9 @@ class Solution:
             else:
                 right.next = head
                 right = right.next
-                
+
             head = head.next
-            
+
         right.next = None
         left.next = right_dummy.next
         return left_dummy.next
-                
